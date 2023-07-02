@@ -11,7 +11,5 @@
  ✔️ **Section - A** <br>
  
  ✔️ **Roll No- 2100290139001** <br>
- 
- ✔️ I have experience in **PHP Technology** .<br>
 
 <br>
