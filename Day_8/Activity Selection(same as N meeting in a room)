@@ -1,0 +1,25 @@
+import java.util.Arrays;
+
+class Solution {
+    public static int activitySelection(int start[], int end[], int n) {
+        // Create an array of indices to keep track of the original positions
+        Integer[] indices = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            indices[i] = i;
+        }
+
+        // Sort the indices array based on the end time array
+        Arrays.sort(indices, (a, b) -> Integer.compare(end[a], end[b]));
+
+        int maxMeetings = 1;
+        int endTime = end[indices[0]];
+        for (int i = 1; i < n; i++) {
+            if (start[indices[i]] > endTime) {
+                maxMeetings++;
+                endTime = end[indices[i]];
+            }
+        }
+
+        return maxMeetings;
+    }
+}
