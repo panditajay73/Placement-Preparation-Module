@@ -1,0 +1,19 @@
+class Solution{
+    ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int N){
+        // code here
+        ArrayList<Integer> list = new ArrayList<>();
+        helper(0,arr,0,list,N);
+        Collections.sort(list);
+        return list;
+    }
+    public void helper(int curr, ArrayList<Integer>nums, int sum,ArrayList<Integer>list,int n){
+        if(curr==n){
+            list.add(sum);
+            return;
+        }
+        sum=sum+nums.get(curr);
+        helper(curr+1,nums,sum,list,n);
+        sum=sum-nums.get(curr);
+        helper(curr+1,nums,sum,list,n);
+    }
+}
