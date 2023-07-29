@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums); // Sort the array to handle duplicates
+        List<List<Integer>> result = new ArrayList<>();
+        generateSubsets(nums, 0, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void generateSubsets(int[] nums, int index, List<Integer> current, List<List<Integer>> result) {
+        result.add(new ArrayList<>(current));
+
+        for (int i = index; i < nums.length; i++) {
+            // Skip duplicates
+            if (i > index && nums[i] == nums[i - 1]) {
+                continue;
+            }
+
+            // Include the current element in the subset
+            current.add(nums[i]);
+
+            // Recursively generate subsets with the next element
+            generateSubsets(nums, i + 1, current, result);
+
+            // Backtrack by removing the current element
+            current.remove(current.size() - 1);
+        }
+    }
