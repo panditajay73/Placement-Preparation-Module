@@ -1,0 +1,30 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+class Solution {
+public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(candidates); // Sort the candidates to handle duplicates and for ascending order of combinations.
+        backtrack(candidates, target, 0, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void backtrack(int[] candidates, int target, int start, List<Integer> current, List<List<Integer>> result) {
+        if (target == 0) {
+            result.add(new ArrayList<>(current)); // Add a copy of the current combination to the result.
+            return;
+        }
+
+        for (int i = start; i < candidates.length; i++) {
+            // Skip candidates that are greater than the remaining target to avoid unnecessary computations.
+            if (candidates[i] > target) {
+                break;
+            }
+
+            current.add(candidates[i]);
+            // Note: We can reuse the current candidate, so the start index is not incremented.
+            backtrack(candidates, target - candidates[i], i, current, result);
+            current.remove(current.size() - 1); // Backtrack by removing the current candidate.
+        }
+    }
+}
