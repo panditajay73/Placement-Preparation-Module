@@ -1,0 +1,35 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution 
+{
+	public static ArrayList<Integer> mergeKSortedArrays(ArrayList<ArrayList<Integer>> kArrays, int k)
+	{
+		// Write your code here.
+		PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        
+        for (int i = 0; i < kArrays.size(); i++) {
+            if (!kArrays.get(i).isEmpty()) {
+                minHeap.offer(new int[]{kArrays.get(i).get(0), i, 0});
+            }
+        }
+        
+        ArrayList<Integer> result = new ArrayList<>();
+        
+        while (!minHeap.isEmpty()) {
+            int[] min = minHeap.poll();
+            int value = min[0];
+            int arrayIndex = min[1];
+            int elementIndex = min[2];
+            
+            result.add(value);
+            
+            if (elementIndex + 1 < kArrays.get(arrayIndex).size()) {
+                minHeap.offer(new int[]{kArrays.get(arrayIndex).get(elementIndex + 1), arrayIndex, elementIndex + 1});
+            }
+        }
+        
+        return result;
+	}
+}
